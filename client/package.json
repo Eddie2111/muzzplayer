@@ -23,6 +23,7 @@
     "react-router-dom": "^6.21.1",
     "sonner": "^1.2.4",
     "sort-by": "^0.0.2",
+    "swiper": "^11.0.5",
     "zod": "^3.22.4"
   },
   "devDependencies": {

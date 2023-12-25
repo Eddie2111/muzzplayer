@@ -1,4 +1,5 @@
 'use strict';
+require ('dotenv').config();
 const z = require('zod');
 
 async function GetEnv() {
