@@ -29,9 +29,7 @@ export default function MusicPlayer({ song }: MusicPlayerProps): JSX.Element {
           </div>
         </div>
         <div className="flex flex-col w-[80%]">
-          <button onClick={clearSong} className="w-8 h-8 pb-1 bg-red-500 hover:bg-red-600 text-white text-xl right-20 rounded-lg absolute">
-            x
-          </button>
+          {/* <button onClick={clearSong} className="w-8 h-8 pb-1 bg-red-500 hover:bg-red-600 text-white text-xl right-20 rounded-lg absolute"> x </button> */}
           <audio controls className="w-[90%] mx-4 h-16 rounded-lg mb-10">
             <source src={song} type="audio/mpeg" />
           </audio>

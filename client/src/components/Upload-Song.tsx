@@ -5,6 +5,7 @@ export default function Test() {
     const [file, setFile] = React.useState<File | null>(null)
     const [title, setTitle] = React.useState('')
     const [artist, setArtist] = React.useState('')
+    const [genre, setGenre] = React.useState('')
     return (
         <div>
         <h1>Test</h1>
@@ -15,6 +16,7 @@ export default function Test() {
             formData.append('filetoupload', file!)
             formData.append('title', title)
             formData.append('artist', artist)
+            formData.append('genre', genre)
             const res = await axios.post('http://localhost:3200/songs', formData)
             console.log(res)
         }}>
@@ -26,6 +28,9 @@ export default function Test() {
             }}/>
             <Input label='Artist' type="text" value={artist} onChange={(e) => {
                 setArtist(e.target.value)
+            }}/>
+            <Input label='Genre' type="text" value={genre} onChange={(e) => {
+                setGenre(e.target.value)
             }}/>
             <Button color='primary' type="submit">Submit</Button>
         </form>

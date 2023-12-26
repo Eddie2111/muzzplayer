@@ -13,7 +13,7 @@ export default function Home(){
             </div>
         </div>
         <SongGrid />
-        <MusicPlayer song='http://localhost:3200/getsongs?filename=1b159165adcdefd32c6d3b600.mp3'/>
+        <MusicPlayer/>
         </>
     )
 }
