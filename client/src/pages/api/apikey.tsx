@@ -1,2 +1,2 @@
-const apikey: string = import.meta.env.VITE_SERVER_API as string;
+const apikey: string = 'https://muzzplayer-service.onrender.com' as string;
 export default apikey;
