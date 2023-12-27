@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React from 'react'
 import {Button, Input} from '@nextui-org/react'
+import apikey from '../pages/api/apikey'
 export default function Test() {
     const [file, setFile] = React.useState<File | null>(null)
     const [title, setTitle] = React.useState('')
     const [artist, setArtist] = React.useState('')
     const [genre, setGenre] = React.useState('')
+    const [albumPicture, setAlbumPicture] = React.useState<File | null>(null)
     return (
         <div>
         <h1>Test</h1>
@@ -17,7 +19,8 @@ export default function Test() {
             formData.append('title', title)
             formData.append('artist', artist)
             formData.append('genre', genre)
-            const res = await axios.post('http://localhost:3200/songs', formData)
+            formData.append('albumPicture', albumPicture!)
+            const res = await axios.post(`${apikey}/songs`, formData)
             console.log(res)
         }}>
             <Input type="file" onChange={(e) => {
@@ -31,6 +34,9 @@ export default function Test() {
             }}/>
             <Input label='Genre' type="text" value={genre} onChange={(e) => {
                 setGenre(e.target.value)
+            }}/>
+            <Input type="file" onChange={(e) => {
+                setAlbumPicture(e.target.files![0])
             }}/>
             <Button color='primary' type="submit">Submit</Button>
         </form>

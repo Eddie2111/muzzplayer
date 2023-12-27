@@ -13,6 +13,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "@types/react-helmet": "^6.1.11",
+    "aws-sdk": "^2.1525.0",
     "axios": "^1.6.2",
     "framer-motion": "^10.16.16",
     "localforage": "^1.10.0",

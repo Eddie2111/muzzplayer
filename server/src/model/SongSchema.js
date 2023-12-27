@@ -23,6 +23,10 @@ const SongSchema = new Schema({
         type: String,
         required: true,
     },
+    albumImage: {
+        type: String,
+        required: true,
+    }
 }, { collection: 'songs' });
 
 module.exports = mongoose.model('Song', SongSchema);

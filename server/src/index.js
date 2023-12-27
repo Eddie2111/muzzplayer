@@ -28,35 +28,38 @@ const writeFile = promisify(fs.writeFile);
 const unlink = promisify(fs.unlink);
 app.use('/music', express.static('public/songs'));
 
-const S3 = require('./lib/aws');
+const getS3Instance = require('./lib/aws');
 
 
 const SongsUpload = async (song) => {
   return {
     Bucket: process.env.AWS_BUCKET_NAME,
     Key: `songs/${Date.now().toString()}.mp3`,
-    Body: song, // image data here
+    Body: song, // song data here
     ContentType: 'mpeg/mp3',
   };
 };
+const AlbumImage = async (image) => {
+    return {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: `images/${Date.now().toString()}.webp`,
+      Body: image, // image data here
+      ContentType: 'image/webp'
+    };
+};
 const Song = require('./model/SongSchema');
+
 // songs being posted here
 app.post('/songs', async (req, res) => {
     const S3 = await getS3Instance();
     try {
         const form = new formidable.IncomingForm();
-
         const { fields, files } = await new Promise((resolve, reject) => {
             form.parse(req, (err, fields, files) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve({ fields, files });
-                }
+                if (err) { reject(err); }
+                else { resolve({ fields, files }); }
             });
         });
-
-        console.log(fields, files);
 
         if (files && files.filetoupload && files.filetoupload.length > 0) {
             const uploadedFile = files.filetoupload[0];
@@ -64,25 +67,31 @@ app.post('/songs', async (req, res) => {
             const uploadedFilePath = uploadedFile.filepath;
             const newFilePath = path.join(__dirname, 'public/songs', originalFilename);
 
+            const albumImageFile = files.albumPicture[0];
+            const albumImageFilename = albumImageFile.newFilename + path.extname(albumImageFile.originalFilename);
+            const albumImageFilePath = albumImageFile.filepath;
+            const newAlbumImageFilePath = path.join(__dirname, 'public/images', albumImageFilename);
 
             try{
-                // Read the file from uploadedFilePath
-                const data = await readFile(uploadedFilePath);
-                // Write the file to newFilePath
-                // await writeFile(newFilePath, data);
-                const songs = await S3.upload(await SongsUpload(data)).promise();
-                // Delete the file from uploadedFilePath
-                await unlink(uploadedFilePath);
                 const {v4} = require('uuid');
-                // Send the response to the client
+                const data = await readFile(uploadedFilePath);
+                const image = await readFile(albumImageFilePath);
+                const songs = await S3.upload(await SongsUpload(data)).promise();
+                const album = await S3.upload(await AlbumImage(image)).promise();
+                // Delete the caches for song and album image
+                await unlink(uploadedFilePath);
+                await unlink(albumImageFilePath);
+                // creating the template and storing to db
                 const song = new Song({
                     id: v4(),
                     title: fields.title[0],
                     artist: fields.artist[0],
                     genre: fields.genre[0],
                     song: songs.key,
+                    albumImage: album.key,
                 });
                 const dataset = await song.save();
+                // Send the response to the client
                 res.json({
                     message: 'File uploaded successfully.',
                     method: req.method,
@@ -112,6 +121,10 @@ app.use('/signup', SignupRoute);
 
 const Songs = require('./routes/songs');
 app.use('/getsongs', Songs);
+
+const GetAllSongs = require('./routes/getallsongs');
+app.use('/getallsongs', GetAllSongs);
+
 
 require('dotenv').config();
 

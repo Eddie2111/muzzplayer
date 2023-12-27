@@ -1,20 +1,18 @@
 import axios from 'axios';
 import React from 'react';
 import UploadSong from '../components/Upload-Song';
-// import MusicPlayer from '../components/Music-Player/index';
 export default function Test(): JSX.Element {
-    // getting a song on initial load
     const [song, setSong] = React.useState<File | null>(null);
     React.useEffect(() => {
         const GetSong = async()=>{
-            const response = await axios.get('http://localhost:3200/getsongs?filename=1b159165adcdefd32c6d3b600.mp3')
+            const response = await axios.get(import.meta.env.VITE_SERVER_API+`/getsongs?filename=1b159165adcdefd32c6d3b600.mp3`)
             setSong(response.data)
         }
         GetSong()
     }, [])
     return(
         <div>
-            
+            <p> You can upload songs from here </p>
             {
                 song && 
 <audio controls className='w-3/4 bg-gray-800 rounded-md p-4 my-8 mx-2 px-4'>
