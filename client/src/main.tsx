@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Navigation from './components/ui/Navbar'
-import App from './App.tsx'
+import App from './App'
+import Home from './pages/homePage'
 import Login from './pages/login'
 import Signup from './pages/signup'
 import Test from './pages/test'
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
   {
     path: "/login",

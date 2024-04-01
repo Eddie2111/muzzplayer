@@ -7,6 +7,7 @@ const mongoDB = require('./lib/mongo');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'src/public')));
@@ -125,10 +126,12 @@ app.use('/getsongs', Songs);
 const GetAllSongs = require('./routes/getallsongs');
 app.use('/getallsongs', GetAllSongs);
 
+const AddSongToFavourite = require("./routes/addSongtoFavourite");
+app.use("/addtofavourites", AddSongToFavourite)
 
 require('dotenv').config();
 
-app.listen(process.env.PORT, async() => {
+app.listen(port, async() => {
     await mongoDB();
     const env = await GetEnv();
     console.log(`Server running on port ${env.PORT}`);
