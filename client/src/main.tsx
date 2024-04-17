@@ -1,27 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Navigation from './components/ui/Navbar'
-import App from './App'
-import Home from './pages/homePage'
-import Login from './pages/login'
-import Signup from './pages/signup'
-import Test from './pages/test'
-import './index.css'
-import {NextUIProvider} from "@nextui-org/react";
+import './index.css';
 
+import React from 'react';
+
+import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
+} from 'react-router-dom';
+import { Toaster } from 'sonner';
+
+import { NextUIProvider } from '@nextui-org/react';
+
+import App from './App';
+import Navigation from './components/ui/Navbar';
+import Home from './pages/homePage';
+import Login from './pages/login';
+import Signup from './pages/signup';
+import Test from './pages/test';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "/home",
-    element: <Home />,
+    element: <App />,
   },
   {
     path: "/login",
@@ -37,15 +41,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/test",
-    element: <Test/>,
-  }
+    element: <Test />,
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <NextUIProvider>
+      <Toaster />
       <Navigation />
       <RouterProvider router={router} />
     </NextUIProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
