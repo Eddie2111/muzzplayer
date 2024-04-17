@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import {Button, Card, Input} from "@nextui-org/react";
 import {z} from "zod";
-
+import apikey from "../pages/api/apikey";
+import axios from "axios";
+interface ResponseProps{
+    data: {
+      message:string
+      status:number
+      data?:any
+    }
+  }
 const FormSchema = z.object({
     email: z.string().email(),
     password: z.string().min(5).max(20, {message: "Password must be between 5 and 20 characters"}),
@@ -17,20 +25,26 @@ export default function Signup() {
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setError("");
     }
-    const signup = (e: React.FormEvent<HTMLFormElement>) => {
+    const signup = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log("form submitted->1")
         if (email === "" || password === "" || confirmPassword === "") {
             setError("Please fill in all fields");
             SetErrorEmpty();
         } else if (password !== confirmPassword) {
+            console.log("password mismatch->2.1")
             setError("Passwords do not match");
             SetErrorEmpty();
         } else {
             const result = FormSchema.safeParse({email, password, confirmPassword});
             if (!result.success) {
+                console.log("form parsing failed->3.1")
                 setError('Proper email not given or password is not between 5 and 20 characters');
                 SetErrorEmpty();
             } else {
+                console.log("form parsed->3.2")
+                const response:ResponseProps = await axios.post(apikey+"/signup",{email,password})
+                console.log(response)
                 setError("Signup successful");
                 SetErrorEmpty();
             }

@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import {Button, Card, Input} from "@nextui-org/react";
 import {z} from "zod";
+import apikey from "../pages/api/apikey";
+import axios from "axios";
 
 const FormSchema = z.object({
     email: z.string().email(),
     password: z.string().min(5),
 });
+
+interface ResponseProps{
+  data: {
+    message:string
+    status:number
+    data?:any
+  }
+}
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -15,7 +25,7 @@ export default function Login() {
      await new Promise((resolve) => setTimeout(resolve, 2000));
         setError("");
   }
-  const login = (e: React.FormEvent<HTMLFormElement>) => {
+  const login = async(e: React.FormEvent<HTMLFormElement>) => {
     console.log("login");
     e.preventDefault();
     console.log(
@@ -30,7 +40,9 @@ export default function Login() {
             setError("Invalid email or password");
             SetErrorEmpty();
         } else {
-            setError("Login successful");
+            const response:ResponseProps = await axios.post(apikey+"/login",{email,password})
+            console.log(response.data)
+            setError(response?.data?.message || " ");
             SetErrorEmpty();
         }
     }
@@ -38,19 +50,26 @@ export default function Login() {
 
   return (
     <Card className="flex justify-center items-center h-screen"> 
-    <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md"> 
-    <h1 className="text-center text-2xl font-bold mb-4">Login to MuzzPlayer</h1> 
-    <form className="space-y-6" onSubmit={login}> 
-    <div className="flex items-center"> 
-    <Input type="email" id="email" name="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} label='Email' required/> 
-    </div> 
-    <div className="flex items-center"> 
-    <Input type="password" id="password" name="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} label='password' required/> 
-    </div> 
-    <Button color='primary' type="submit" > Login </Button> 
-    <p className="text-center text-red-500">&nbsp; {error} &nbsp;</p>
-    </form> 
-    </div> 
+      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md"> 
+      
+        <h1 className="text-center text-2xl font-bold mb-4">Login to MuzzPlayer</h1> 
+
+        <form className="space-y-6" onSubmit={login}> 
+          <div className="flex items-center"> 
+            <Input type="email" id="email" name="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} label='Email' required/> 
+          </div> 
+
+          <div className="flex items-center"> 
+            <Input type="password" id="password" name="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} label='password' required/> 
+          </div> 
+
+          <Button color='primary' type="submit" > Login </Button> 
+          
+          <p className="text-center text-red-500">&nbsp; {error} &nbsp;</p>
+
+        </form> 
+
+      </div> 
     </Card>
   );
 }
