@@ -117,6 +117,9 @@ app.use('/', IndexRoute);
 const LoginRoute = require('./routes/login');
 app.use('/login', LoginRoute);
 
+const LogoutRoute = require("./routes/logout");
+app.use("/logout", LogoutRoute);
+
 const SignupRoute = require('./routes/signup');
 app.use('/signup', SignupRoute);
 
@@ -131,7 +134,7 @@ app.use("/addtofavourites", AddSongToFavourite)
 
 require('dotenv').config();
 
-app.listen(port, async() => {
+app.listen(3200, async() => {
     await mongoDB();
     const env = await GetEnv();
     console.log(`Server running on port ${env.PORT}`);

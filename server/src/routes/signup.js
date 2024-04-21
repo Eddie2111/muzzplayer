@@ -11,7 +11,7 @@ router
     .post(async(req,res)=>{
         try{
             const {email,password} = req.body;
-            const hash = bcrypt.hashSync(password, 20);
+            const hash = bcrypt.hashSync(password,1);
             const dataset = new Users({
                 email,
                 password:hash,
