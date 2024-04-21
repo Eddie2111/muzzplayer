@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 
 import { toast } from 'sonner';
@@ -11,6 +13,10 @@ import { ReactLenis } from '@studio-freight/react-lenis';
 import {
   BackgroundGradientAnimation,
 } from '../components/Background-Gradient-Animation';
+import {
+  LeftFramingAnimation,
+  RightFramingAnimation,
+} from '../components/Framers';
 import {
   ParallaxingLayer,
 } from '../components/Parallax-Layers/Artist-Timelines';
@@ -50,9 +56,40 @@ export default function Home() {
           </p>
         </div>
       </BackgroundGradientAnimation>
+      <SoulSection />
       <AboutSection />
       <Footer />
     </ReactLenis>
+  );
+}
+
+function SoulSection() {
+  return (
+    <div className="relative h-[98vh] my-20">
+      {/* Image as background */}
+      <img
+        src="/about.jpg"
+        className="absolute inset-0 w-full h-full object-cover"
+        alt="Background"
+      />
+
+      {/* Container for text with higher z-index */}
+      <div className="absolute inset-0 flex flex-col z-10 w-42">
+        {/* Text on left */}
+        <LeftFramingAnimation>
+          <TypographyTitle className="text-white text-left backdrop-blur-sm px-16 py-24 w-[42rem] mx-24">
+            Music touches soul
+          </TypographyTitle>
+        </LeftFramingAnimation>
+        <div className="h-72">&nbsp;</div>
+        {/* Text on right */}
+        <RightFramingAnimation>
+          <TypographyTitle className="text-white text-right backdrop-blur-sm px-16 py-24 mt-[320px] w-[42rem] ml-[60vw]">
+            Music touches Heart
+          </TypographyTitle>
+        </RightFramingAnimation>
+      </div>
+    </div>
   );
 }
 
@@ -76,7 +113,8 @@ function AboutSection() {
 
 function AboutSectionForm() {
   const [email, setEmail] = React.useState<string>("");
-  function submitHandle(e) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function submitHandle(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     toast.success(
       "Thank you for signing up, you will be recieving celeb gossips soon!"
@@ -94,8 +132,9 @@ function AboutSectionForm() {
           placeholder="joe@email.com"
           className="w-52 h-12"
           value={email}
-          onChange={(e: React.FormEvent<HTMLFormElement>) =>
-            setEmail(e.target.value)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.currentTarget.value)
           }
         />
         <Button type="submit" color="primary" className="my-1">

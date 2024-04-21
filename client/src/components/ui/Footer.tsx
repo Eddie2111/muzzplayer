@@ -6,14 +6,13 @@ export default function Footer() {
       <div className="container px-6 py-8 mx-auto">
         <div className="flex flex-col items-center text-center">
           <a href="#">
-            <TypographyLogo>MUZZPLAYER</TypographyLogo>
+            <TypographyLogo />
           </a>
 
           <div className="flex flex-wrap justify-center mt-6 -mx-4">
             <a
               href="#"
               className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-              ariaLabel="Reddit"
             >
               {" "}
               Home{" "}
@@ -22,7 +21,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-              ariaLabel="Reddit"
             >
               {" "}
               About{" "}
@@ -31,7 +29,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-              ariaLabel="Reddit"
             >
               {" "}
               Teams{" "}
@@ -40,7 +37,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-              ariaLabel="Reddit"
             >
               {" "}
               Privacy{" "}
@@ -49,7 +45,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-              ariaLabel="Reddit"
             >
               {" "}
               Cookies{" "}
@@ -68,7 +63,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-              ariaLabel="Reddit"
             >
               <svg
                 className="w-5 h-5 fill-current"
@@ -83,7 +77,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-              ariaLabel="Facebook"
             >
               <svg
                 className="w-5 h-5 fill-current"
@@ -98,7 +91,6 @@ export default function Footer() {
             <a
               href="#"
               className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-              ariaLabel="Github"
             >
               <svg
                 className="w-5 h-5 fill-current"

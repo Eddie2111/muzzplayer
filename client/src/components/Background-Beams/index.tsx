@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 
 import { motion } from 'framer-motion';
@@ -90,7 +92,9 @@ export const BackgroundBeams = React.memo(
             ></motion.path>
           ))}
           <defs>
-            {paths.map((path, index) => (
+            {paths.map((path, index) => {
+              console.log(path)
+              return(
               <motion.linearGradient
                 id={`linearGradient-${index}`}
                 key={`gradient-${index}`}
@@ -118,7 +122,7 @@ export const BackgroundBeams = React.memo(
                 <stop offset="32.5%" stopColor="#6344F5"></stop>
                 <stop offset="100%" stopColor="#AE48FF" stopOpacity="0"></stop>
               </motion.linearGradient>
-            ))}
+)})}
 
             <radialGradient
               id="paint0_radial_242_278"

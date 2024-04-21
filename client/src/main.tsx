@@ -12,6 +12,7 @@ import { Toaster } from 'sonner';
 import { NextUIProvider } from '@nextui-org/react';
 
 import App from './App';
+import { AuthProvider } from './components/contexts/Auth-Context';
 import Navigation from './components/ui/Navbar';
 import Home from './pages/homePage';
 import Login from './pages/login';
@@ -48,9 +49,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <NextUIProvider>
+      <AuthProvider>
       <Toaster />
       <Navigation />
       <RouterProvider router={router} />
+      </AuthProvider>
     </NextUIProvider>
   </React.StrictMode>
 );

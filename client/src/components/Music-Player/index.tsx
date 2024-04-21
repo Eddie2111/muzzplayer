@@ -1,31 +1,30 @@
 import React from 'react';
+
 import { Card } from '@nextui-org/react';
-import { UseMusicContext } from '../contexts/Music-Context';
+
 import apikey from '../../pages/api/apikey';
+import { UseMusicContext } from '../contexts/Music-Context';
 
 export default function MusicPlayer(): JSX.Element {
   const [songData, setSongData] = React.useState<string | null>(null);
   const { music, artist, title } = UseMusicContext();
   const { setMusic, setArtist, setTitle } = UseMusicContext();
   const clearSong = () => {
-    console.log('clearing song')
-    setMusic('');
-    setArtist('');
-    setTitle('');
+    console.log("clearing song");
+    setMusic("");
+    setArtist("");
+    setTitle("");
     setSongData(null);
   };
 
   React.useEffect(() => {
-    console.log(music, 'the music');
-    console.log('yo we did it?');
-
     async function getSong() {
-      if (music){
+      if (music) {
         try {
           // Assuming the response.data is the song URL
           setSongData(`${apikey}/getSongs?id=${music}`);
         } catch (error) {
-          console.error('Error fetching song:', error);
+          console.error("Error fetching song:", error);
         }
       }
     }
@@ -33,7 +32,7 @@ export default function MusicPlayer(): JSX.Element {
     getSong();
   }, [music]);
 
-  console.log(songData, 'the song data');
+  console.log(songData, "the song data");
   if (!music) {
     return <></>;
   }
@@ -47,13 +46,16 @@ export default function MusicPlayer(): JSX.Element {
           </div>
         </div>
         <div className="flex flex-col w-[80%]">
-          <button onClick={clearSong} className="w-8 h-8 pb-1 bg-red-500 hover:bg-red-600 text-white text-xl right-20 rounded-lg absolute">
+          <button
+            onClick={clearSong}
+            className="w-8 h-8 pb-1 bg-red-500 hover:bg-red-600 text-white text-xl right-20 rounded-lg absolute"
+          >
             x
           </button>
           {songData && (
             <audio controls className="w-[90%] mx-4 h-16 rounded-lg mb-10">
-            <source src={songData} type="audio/mpeg" />
-          </audio>
+              <source src={songData} type="audio/mpeg" />
+            </audio>
           )}
         </div>
       </div>

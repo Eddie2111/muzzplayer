@@ -22,14 +22,19 @@ export function TypographyHeading({
 }
 
 export function TypographyLogo({
-  children,
+  // children,
   className,
 }: {
-  children: React.ReactNode;
+  // children: React.ReactNode;
   className?: string;
 }) {
   return (
-    <p className="my-8 text-4xl hover:font-bold hover:underline hover:underline-offset-1 duration-200">
+    <p
+      className={cn([
+        "my-8 text-4xl hover:font-bold hover:underline hover:underline-offset-1 duration-200",
+        className,
+      ])}
+    >
       <span className="my-8 text-4xl hover:font-bold hover:underline hover:underline-offset-1 duration-200">
         M
       </span>

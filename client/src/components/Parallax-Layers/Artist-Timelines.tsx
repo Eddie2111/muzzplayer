@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Image } from '@nextui-org/react';
 
 import { AuroraBackground } from '../Aurora-Backgrounds';

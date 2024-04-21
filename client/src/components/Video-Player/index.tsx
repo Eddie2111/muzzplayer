@@ -1,24 +1,33 @@
+/* eslint-disable */
+
 import {
   useEffect,
   useRef,
 } from 'react';
 
+interface CloudinaryRef {
+  videoPlayer: (element: HTMLVideoElement, options: any) => void;
+}
+
 export function VideoPlayer() {
-  const cloudinaryRef = useRef();
-  const videoRef = useRef();
+  const cloudinaryRef = useRef<CloudinaryRef>();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     try {
-      if (cloudinaryRef.current) return;
-      cloudinaryRef.current = window.cloudinary;
-      cloudinaryRef.current.videoPlayer(videoRef.current, {
-        cloud_name: "dychxgsiy",
-        loop: true,
-        fluid: true,
-        controls: true,
-        autoPlay: true,
-      });
-    } catch (err: unknown) {
+      if (!cloudinaryRef.current) {
+        cloudinaryRef.current = (window as any).cloudinary;
+      }
+      if (cloudinaryRef.current) {
+        cloudinaryRef.current.videoPlayer(videoRef.current!, {
+          cloud_name: "dychxgsiy",
+          loop: true,
+          fluid: true,
+          controls: true,
+          autoPlay: true,
+        });
+      }
+    } catch (err) {
       console.log(err);
     }
   }, []);
